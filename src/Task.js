@@ -1,14 +1,22 @@
 import React from "react";
 import "./Task.css"
 
-function Task(props) {
+class Task extends React.Component {
 
-    return (
-        <div className="task">
-            <label>{props.title}</label>
-            <input type="checkbox" checked={props.checked} />
-        </div>
-    );
+    constructor(props) {
+        super(props);
+        this.state = { done: props.done }
+    }
+
+    render() {
+        return (
+            <div className="task">
+                <label>{this.props.title}</label>
+                <label>Done</label>
+                <input type="checkbox" checked={this.state.done} onChange={() => this.setState({done: !this.state.done})} />
+            </div>
+        );
+    }
 
 }
 
