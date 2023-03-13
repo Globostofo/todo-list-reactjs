@@ -1,8 +1,12 @@
 import './App.css';
+import Task from "./Task.js"
 
 function App() {
     return (
-        <h1>Coucou</h1>
+        <div>
+            <h1>Coucou</h1>
+            <Task title="ma tache 1" checked />
+        </div>
     );
 }
 
