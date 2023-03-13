@@ -1,15 +1,14 @@
 import React from "react";
+import "./Task.css"
 
-class Task extends React.Component {
+function Task(props) {
 
-    render() {
-        return (
-            <div className="task">
-                <p>{this.props.title}</p>
-                <input type="checkbox" checked={this.props.checked} />
-            </div>
-        );
-    }
+    return (
+        <div className="task">
+            <label>{props.title}</label>
+            <input type="checkbox" checked={props.checked} />
+        </div>
+    );
 
 }
 
