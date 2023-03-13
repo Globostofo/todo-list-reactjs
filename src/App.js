@@ -19,7 +19,7 @@ class App extends React.Component {
         return (
             <div>
                 <h1>To Do List</h1>
-                <ul>{this.state.tasks.map((task) => <li key={task.props.title}>{task}</li>)}</ul>
+                <ul className='task-list'>{this.state.tasks.map((task) => <li key={task.props.title}>{task}</li>)}</ul>
             </div>
         );
     }
