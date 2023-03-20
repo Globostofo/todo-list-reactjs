@@ -7,23 +7,31 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: [],
+            tasks: {},
             a_i: 0
         }
+    }
+
+    handleCreation() {
+        this.setState({ tasks: { ...this.state.tasks, ...{ [this.state.a_i++]: { 'title': prompt("Title:"), 'done': false } } } });
+    }
+
+    handleDeletion(task) {
+        let newMap = this.state.tasks;
+        delete newMap[task[0]];
+        this.setState({ tasks: newMap });
+    }
+
+    createRenderedTask(task) {
+        return <li key={task[0]}><Task title={task[1].title} checked={task[1].done} onDelete={() => this.handleDeletion(task[0])} /></li>;
     }
 
     render() {
         return (
             <div>
                 <h1>To Do List</h1>
-                <ul className='task-list'>{this.state.tasks.map((task) =>
-                    <li key={task.id}><Task id={task.id} title={task.title} checked={task.done} /></li>
-                )}</ul>
-                <button onClick={() => this.setState({tasks: this.state.tasks.concat({
-                    'id': this.state.a_i++,
-                    'title': prompt("Title:"),
-                    'done': false
-                })})}>New task</button>
+                <ul className='task-list'>{Object.entries(this.state.tasks).map((task) => this.createRenderedTask(task))}</ul>
+                <button onClick={() => this.handleCreation()}>New task</button>
             </div>
         );
     }
