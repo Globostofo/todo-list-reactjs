@@ -6,11 +6,18 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+        let tasks = localStorage.getItem('tasks');
+        let autoIncr = localStorage.getItem('autoIncr');
         this.state = {
-            tasks: {},
-            autoIncr: 0,
+            tasks: tasks ? JSON.parse(tasks) : {},
+            autoIncr: autoIncr ? JSON.parse(autoIncr) : 0,
             taskBar: ''
         }
+    }
+
+    saveStateInLocalStorage() {
+        localStorage.setItem('tasks', JSON.stringify(this.state.tasks));
+        localStorage.setItem('autoIncr', JSON.stringify(this.state.autoIncr));
     }
 
     createRenderableTask(id, task) {
@@ -28,6 +35,7 @@ class App extends React.Component {
     }
 
     render() {
+        this.saveStateInLocalStorage();
         return (
             <div>
                 <h1>To Do List</h1>
