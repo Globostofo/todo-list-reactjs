@@ -21,11 +21,17 @@ class App extends React.Component {
     }
 
     createRenderableTask(id, task) {
-        return <li key={id}><Task title={task.title} checked={task.done} onDelete={() => this.handleTaskDeletion(id)} /></li>;
+        return <li key={id}><Task title={task.title} done={task.done} onDone={() => this.handleDoneClicked(id)} onDelete={() => this.handleTaskDeletion(id)} /></li>;
     }
 
     handleTaskCreation() {
         this.setState({ tasks: { ...this.state.tasks, ...{ [this.state.autoIncr]: { 'title': this.state.taskBar, 'done': false } } }, autoIncr: this.state.autoIncr + 1, taskBar: '' })
+    }
+
+    handleDoneClicked(id) {
+        let newMap = this.state.tasks;
+        newMap[id].done = !newMap[id].done;
+        this.setState({ tasks: newMap });
     }
 
     handleTaskDeletion(id) {
