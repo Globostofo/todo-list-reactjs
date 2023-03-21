@@ -21,10 +21,6 @@ class App extends React.Component {
         localStorage.setItem('autoIncr', JSON.stringify(this.state.autoIncr));
     }
 
-    renderTasks() {
-        return Object.entries(this.state.tasks).filter((entry) => entry[1].title.includes(this.state.searchBar)).map((entry) => this.createRenderableTask(entry[0], entry[1]))
-    }
-
     createRenderableTask(id, task) {
         return <li key={id}><Task title={task.title} done={task.done} onDone={() => this.handleDoneClicked(id)} onDelete={() => this.handleTaskDeletion(id)} /></li>;
     }
@@ -56,11 +52,13 @@ class App extends React.Component {
 
     render() {
         this.saveStateInLocalStorage();
+        let displayTasks = Object.entries(this.state.tasks).filter((entry) => entry[1].title.includes(this.state.searchBar));
         return (
             <div>
                 <h1>To Do List</h1>
                 <input type="text" placeholder="Search" value={this.state.searchBar} onChange={(event) => this.setState({ searchBar: event.target.value })} />
-                <ul className='task-list'>{this.renderTasks()}</ul>
+                <p>Display {displayTasks.length}/{Object.keys(this.state.tasks).length} task(s)</p>
+                <ul className='task-list'>{displayTasks.map((entry) => this.createRenderableTask(entry[0], entry[1]))}</ul>
                 <input type="text" placeholder="My new task" value={this.state.taskBar} onChange={(event) => this.setState({ taskBar: event.target.value })} />
                 <button onClick={() => this.handleTaskCreation()}>Add Task</button>
                 <br /><button onClick={() => this.handleDoneDeletion()}>Delete done tasks</button>
