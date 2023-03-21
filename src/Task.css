@@ -2,6 +2,14 @@
     padding: 5px;
 }
 
+.title, .done-btn, .del-btn {
+    float: left;
+}
+
 .title {
-    margin-right: 50%;
+    width: 30%;
+}
+
+.done-btn {
+    width: 100px;
 }
