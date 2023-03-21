@@ -13,6 +13,10 @@ class App extends React.Component {
         }
     }
 
+    handleCreation() {
+        this.setState({ tasks: { ...this.state.tasks, ...{ [this.state.a_i++]: { 'title': this.state.taskBar, 'done': false } } }, taskBar: '' })
+    }
+
     handleDeletion(task) {
         let newMap = this.state.tasks;
         delete newMap[task[0]];
@@ -29,7 +33,7 @@ class App extends React.Component {
                 <h1>To Do List</h1>
                 <ul className='task-list'>{Object.entries(this.state.tasks).map((task) => this.createRenderedTask(task))}</ul>
                 <input type="text" placeholder="My new task" value={this.state.taskBar} onChange={(event) => this.setState({ taskBar: event.target.value })} />
-                <button onClick={() => this.setState({ tasks: { ...this.state.tasks, ...{ [this.state.a_i++]: { 'title': this.state.taskBar, 'done': false } } }, taskBar: '' })}>Add Task</button>
+                <button onClick={() => this.handleCreation()}>Add Task</button>
             </div >
         );
     }
