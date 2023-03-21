@@ -25,7 +25,8 @@ class App extends React.Component {
     }
 
     handleTaskCreation() {
-        this.setState({ tasks: { ...this.state.tasks, ...{ [this.state.autoIncr]: { 'title': this.state.taskBar, 'done': false } } }, autoIncr: this.state.autoIncr + 1, taskBar: '' })
+        if (0 < this.state.taskBar.length && this.state.taskBar.length <= 32)
+            this.setState({ tasks: { ...this.state.tasks, ...{ [this.state.autoIncr]: { 'title': this.state.taskBar, 'done': false } } }, autoIncr: this.state.autoIncr + 1, taskBar: '' })
     }
 
     handleDoneClicked(id) {
