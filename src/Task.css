@@ -1,15 +1,12 @@
 .task {
-    padding: 5px;
+    padding: 10px;
 }
 
-.title, .done-btn, .del-btn {
-    float: left;
+.options-bar {
+    display: flex;
+    float: right;
 }
 
-.title {
-    width: 30%;
-}
-
-.done-btn {
-    width: 100px;
+.del-btn {
+    margin-left: 40px;
 }

@@ -11,12 +11,14 @@ class Task extends React.Component {
     render() {
         return (
             <div className="task">
-                <label className="title">{this.props.title}</label>
-                <div className="done-btn">
-                    <label>Done</label>
-                    <input type="checkbox" checked={this.state.done} onChange={() => this.setState({ done: !this.state.done })} />
+                <label>{this.props.title}</label>
+                <div className="options-bar">
+                    <div className="done-btn">
+                        <label>Done</label>
+                        <input type="checkbox" checked={this.state.done} onChange={() => this.setState({ done: !this.state.done })} />
+                    </div>
+                    <button className="del-btn" onClick={this.props.onDelete}>Delete</button>
                 </div>
-                <button className="delete-btn" onClick={this.props.onDelete}>Delete</button>
             </div>
         );
     }
