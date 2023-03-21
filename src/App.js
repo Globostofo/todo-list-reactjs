@@ -41,6 +41,14 @@ class App extends React.Component {
         this.setState({ tasks: newMap });
     }
 
+    handleDoneDeletion() {
+        let newMap = this.state.tasks;
+        Object.entries(newMap).forEach((entry) => {
+            if (entry[1].done) delete newMap[entry[0]];
+        })
+        this.setState({ tasks: newMap })
+    }
+
     render() {
         this.saveStateInLocalStorage();
         return (
@@ -49,6 +57,7 @@ class App extends React.Component {
                 <ul className='task-list'>{Object.entries(this.state.tasks).map((entry) => this.createRenderableTask(entry[0], entry[1]))}</ul>
                 <input type="text" placeholder="My new task" value={this.state.taskBar} onChange={(event) => this.setState({ taskBar: event.target.value })} />
                 <button onClick={() => this.handleTaskCreation()}>Add Task</button>
+                <br /><button onClick={() => this.handleDoneDeletion()}>Delete done tasks</button>
             </div >
         );
     }
