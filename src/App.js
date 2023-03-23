@@ -12,7 +12,8 @@ class App extends React.Component {
             tasks: tasks ? JSON.parse(tasks) : {},
             autoIncr: autoIncr ? JSON.parse(autoIncr) : 0,
             searchBar: '',
-            taskBar: ''
+            taskBar: '',
+            displayType: 'all'
         }
     }
 
@@ -53,10 +54,19 @@ class App extends React.Component {
     render() {
         this.saveStateInLocalStorage();
         let displayTasks = Object.entries(this.state.tasks).filter((entry) => entry[1].title.toLowerCase().replace(' ', '').includes(this.state.searchBar.toLowerCase().replace(' ', '')));
+        if (this.state.displayType === 'done') displayTasks = displayTasks.filter((entry) => entry[1].done);
+        else if (this.state.displayType === 'undone') displayTasks = displayTasks.filter((entry) => !entry[1].done);
         return (
             <div>
                 <h1>To Do List</h1>
                 <input type="text" placeholder="Search" value={this.state.searchBar} onChange={(event) => this.setState({ searchBar: event.target.value })} />
+                <br />
+                <label>Show </label>
+                <select value={this.state.displayType} onChange={(event) => this.setState({ displayType: event.target.value })}>
+                    <option value="all">All</option>
+                    <option value="done">Done only</option>
+                    <option value="undone">Undone only</option>
+                </select>
                 <p>Display {displayTasks.length}/{Object.keys(this.state.tasks).length} task(s)</p>
                 <ul className='task-list'>{displayTasks.map((entry) => this.createRenderableTask(entry[0], entry[1]))}</ul>
                 <input type="text" placeholder="My new task" value={this.state.taskBar} onChange={(event) => this.setState({ taskBar: event.target.value })} />
