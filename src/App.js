@@ -52,7 +52,7 @@ class App extends React.Component {
 
     render() {
         this.saveStateInLocalStorage();
-        let displayTasks = Object.entries(this.state.tasks).filter((entry) => entry[1].title.includes(this.state.searchBar));
+        let displayTasks = Object.entries(this.state.tasks).filter((entry) => entry[1].title.toLowerCase().replace(' ', '').includes(this.state.searchBar.toLowerCase().replace(' ', '')));
         return (
             <div>
                 <h1>To Do List</h1>
