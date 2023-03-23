@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import NavigationBar from './NavigationBar.js';
 import TaskDisplayer from "./TaskDisplayer.js";
 
 class App extends React.Component {
@@ -12,8 +13,8 @@ class App extends React.Component {
             tasks: tasks ? JSON.parse(tasks) : {},
             autoIncr: autoIncr ? JSON.parse(autoIncr) : 0,
             searchBar: '',
-            taskBar: '',
-            displayType: 'all'
+            doneSelector: 'all',
+            taskBar: ''
         }
     }
 
@@ -52,16 +53,10 @@ class App extends React.Component {
         return (
             <div>
                 <h1>To Do List</h1>
-                <input type="text" placeholder="Search" value={this.state.searchBar} onChange={(event) => this.setState({ searchBar: event.target.value })} />
-                <br />
-                <label>Show </label>
-                <select value={this.state.displayType} onChange={(event) => this.setState({ displayType: event.target.value })}>
-                    <option value="all">All</option>
-                    <option value="done">Done only</option>
-                    <option value="undone">Undone only</option>
-                </select>
-                <TaskDisplayer tasks={this.state.tasks} searchFilter={this.state.searchBar} displayType={this.state.displayType}
-                onDone={(id) => this.handleDoneClicked(id)} onDelete={(id) => this.handleTaskDeletion(id)} />
+                <NavigationBar searchBar={this.state.searchBar} onSearchBarChange={(text) => this.setState({ searchBar: text })}
+                    doneSelector={this.state.doneSelector} onDoneSelectorChange={(selection) => this.setState({ doneSelector: selection })} />
+                <TaskDisplayer tasks={this.state.tasks} searchFilter={this.state.searchBar} displayType={this.state.doneSelector}
+                    onDone={(id) => this.handleDoneClicked(id)} onDelete={(id) => this.handleTaskDeletion(id)} />
                 <input type="text" placeholder="My new task" value={this.state.taskBar} onChange={(event) => this.setState({ taskBar: event.target.value })} />
                 <button onClick={() => this.handleTaskCreation()}>Add Task</button>
                 <br /><button onClick={() => this.handleDoneDeletion()}>Delete done tasks</button>
