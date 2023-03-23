@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Task from "./Task.js"
+import TaskDisplayer from "./TaskDisplayer.js";
 
 class App extends React.Component {
 
@@ -20,10 +20,6 @@ class App extends React.Component {
     saveStateInLocalStorage() {
         localStorage.setItem('tasks', JSON.stringify(this.state.tasks));
         localStorage.setItem('autoIncr', JSON.stringify(this.state.autoIncr));
-    }
-
-    createRenderableTask(id, task) {
-        return <li key={id}><Task title={task.title} done={task.done} onDone={() => this.handleDoneClicked(id)} onDelete={() => this.handleTaskDeletion(id)} /></li>;
     }
 
     handleTaskCreation() {
@@ -53,9 +49,6 @@ class App extends React.Component {
 
     render() {
         this.saveStateInLocalStorage();
-        let displayTasks = Object.entries(this.state.tasks).filter((entry) => entry[1].title.toLowerCase().replace(' ', '').includes(this.state.searchBar.toLowerCase().replace(' ', '')));
-        if (this.state.displayType === 'done') displayTasks = displayTasks.filter((entry) => entry[1].done);
-        else if (this.state.displayType === 'undone') displayTasks = displayTasks.filter((entry) => !entry[1].done);
         return (
             <div>
                 <h1>To Do List</h1>
@@ -67,8 +60,8 @@ class App extends React.Component {
                     <option value="done">Done only</option>
                     <option value="undone">Undone only</option>
                 </select>
-                <p>Display {displayTasks.length}/{Object.keys(this.state.tasks).length} task(s)</p>
-                <ul className='task-list'>{displayTasks.map((entry) => this.createRenderableTask(entry[0], entry[1]))}</ul>
+                <TaskDisplayer tasks={this.state.tasks} searchFilter={this.state.searchBar} displayType={this.state.displayType}
+                onDone={(id) => this.handleDoneClicked(id)} onDelete={(id) => this.handleTaskDeletion(id)} />
                 <input type="text" placeholder="My new task" value={this.state.taskBar} onChange={(event) => this.setState({ taskBar: event.target.value })} />
                 <button onClick={() => this.handleTaskCreation()}>Add Task</button>
                 <br /><button onClick={() => this.handleDoneDeletion()}>Delete done tasks</button>
