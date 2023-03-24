@@ -10,3 +10,30 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-list li::after {
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #777;
+}
+
+.task {
+    padding: 10px;
+}
+
+.options-bar {
+    display: flex;
+    float: right;
+}
+
+.del-btn {
+    margin-left: 40px;
+}

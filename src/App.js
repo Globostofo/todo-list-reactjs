@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './style.css';
 import NavigationBar from './NavigationBar.js';
 import TaskDisplayer from "./TaskDisplayer.js";
 import TaskManager from "./TaskManager.js";
